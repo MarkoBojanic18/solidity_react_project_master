@@ -71,31 +71,6 @@
           "type": "string"
         },
         {
-          "internalType": "string",
-          "name": "_streetName",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_houseNumber",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_postalCode",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "_countryName",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_countryCode",
-          "type": "uint256"
-        },
-        {
           "internalType": "bool",
           "name": "_admin",
           "type": "bool"

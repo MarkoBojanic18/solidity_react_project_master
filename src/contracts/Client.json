@@ -14,31 +14,6 @@
           "type": "string"
         },
         {
-          "internalType": "string",
-          "name": "_streetName",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_houseNumber",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_postalCode",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "_countryName",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_countryCode",
-          "type": "uint256"
-        },
-        {
           "internalType": "address",
           "name": "_account",
           "type": "address"
@@ -83,32 +58,6 @@
           "internalType": "uint256",
           "name": "",
           "type": "uint256"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getAddressOfLiving",
-      "outputs": [
-        {
-          "internalType": "contract AddressOfLiving",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getCountry",
-      "outputs": [
-        {
-          "internalType": "contract Country",
-          "name": "",
-          "type": "address"
         }
       ],
       "stateMutability": "view",
@@ -188,32 +137,6 @@
         }
       ],
       "name": "setAccountBalance",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "contract AddressOfLiving",
-          "name": "_addressOfLiving",
-          "type": "address"
-        }
-      ],
-      "name": "setAddressOfLiving",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "contract Country",
-          "name": "_country",
-          "type": "address"
-        }
-      ],
-      "name": "setCountry",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
