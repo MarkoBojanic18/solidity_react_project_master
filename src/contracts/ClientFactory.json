@@ -175,13 +175,19 @@
       "type": "function"
     },
     {
-      "inputs": [],
-      "name": "findAdmin",
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_account",
+          "type": "string"
+        }
+      ],
+      "name": "doesClientExistInTheList",
       "outputs": [
         {
-          "internalType": "contract Client",
+          "internalType": "bool",
           "name": "",
-          "type": "address"
+          "type": "bool"
         }
       ],
       "stateMutability": "view",

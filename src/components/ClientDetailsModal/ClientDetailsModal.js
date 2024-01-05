@@ -74,7 +74,8 @@ const ClientDetailsModal = ({ client, onClose, web3, account }) => {
         </div>
       ) : (
         <div>
-          <h1>You can't see this account!</h1>
+          <h1>You can't see client's details!</h1>
+          <p className="client-info">Client's address: {clientAccount}</p>
           <button className="close-button" onClick={onClose}>
             Close
           </button>

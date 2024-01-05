@@ -1,0 +1,114 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+import "./Client.sol";
+
+contract ClientFactory{
+    
+    Client[] private clients;
+
+    error noAdminInTheList(string message);
+    error noClientInTheList(string message);
+    error clientAlreadyExists(string message, address clientAddress);
+
+    event clientIsSuccessfullyCreated(string clientName, address clientAddress);
+    event moneyIsSuccessfullyWithDrawn(uint value, address clientAddress);
+    event moneyIsSuccessfullyTransfered(uint value, address sender, address recipient);
+
+    function createNewClient(string memory _firstName, string memory _lastName, bool _admin, string memory _gender, uint _accountBalance) public{
+        Client newClient = new Client(_firstName, _lastName,msg.sender,_admin,_gender, _accountBalance);
+        if(checkNewClient(newClient)){
+            revert clientAlreadyExists("Client with this address has been already created!",msg.sender);
+        }
+
+        
+        clients.push(newClient);
+        
+        string memory fullClientName = string.concat(_firstName," ",_lastName);
+        emit clientIsSuccessfullyCreated(fullClientName, msg.sender);
+    }
+
+    function checkNewClient(Client newClient)public view returns(bool){
+        uint arrayLength = clients.length;
+
+        for(uint i = 0; i < arrayLength; i++){
+            if(clients[i].getAccount() == newClient.getAccount()){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    function withdrawMoney() public payable{
+        Client sender = findClient(msg.sender);
+
+        require(sender.getAccountBalance() >= msg.value, "There is not enough money on your's account!");
+
+        sender.setAccountBalance(sender.getAccountBalance()-msg.value);
+        emit moneyIsSuccessfullyWithDrawn(msg.value, msg.sender);
+    }
+
+    function transferMoney(address payable _accountRecipient) public payable {
+        Client sender = findClient(msg.sender);
+        Client recipient = findClient(_accountRecipient);
+
+        require(sender.getAccountBalance() >= msg.value, "There is not enough money on your's account in order to complete transaction!");
+
+        sender.setAccountBalance(sender.getAccountBalance()-msg.value);
+        recipient.setAccountBalance(recipient.getAccountBalance()+msg.value);
+        emit moneyIsSuccessfullyTransfered(msg.value, msg.sender, _accountRecipient);
+    }
+
+    function showClientBalance() public view returns (uint){
+        uint arrayLength = clients.length;
+
+        for(uint i = 0; i < arrayLength; i++){
+            if(clients[i].getAccount() == msg.sender){
+                return clients[i].getAccountBalance();
+            }
+        }
+
+        revert noClientInTheList("There is no client with mentioned account in the array!");
+    }
+
+    function findClient(address _account) public view returns(Client){
+        uint arrayLength = clients.length;
+
+        for(uint i = 0; i < arrayLength; i++){
+            if(clients[i].getAccount() == _account){
+                return clients[i];
+            }
+        }
+
+        revert noClientInTheList("There is no client with mentioned account in the array!");
+    }
+
+    function getAllClients() public view returns(Client[] memory){
+        return clients;
+    }
+
+    function doesClientExistInTheList(string memory _account) public view returns(bool){
+        uint arrayLength = clients.length;
+        address convertedAddress = stringToAddress(_account);
+
+        for(uint i = 0; i < arrayLength; i++){
+           if(clients[i].getAccount() == convertedAddress){
+            return true;
+           }
+        }
+
+        return false;
+    }
+
+     function stringToAddress(string memory _addressString) public pure returns (address) {
+        bytes memory _bytes = bytes(_addressString);
+        require(_bytes.length == 42, "Invalid address length"); // Ensure the string represents a valid address
+
+        bytes memory _tempBytes = abi.encodePacked(_addressString);
+        address _convertedAddress;
+        assembly {
+            _convertedAddress := mload(add(_tempBytes, 20))
+        }
+        return _convertedAddress;
+    }
+}

@@ -1,0 +1,68 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.4;
+import "./AddressOfLiving.sol";
+import "./Country.sol";
+
+contract Client{
+    string private firstName;
+    string private lastName;
+    address private account;
+    bool private admin;
+    string private gender;
+    uint private accountBalance;
+
+    constructor(string memory _firstName, string memory _lastName, address _account, bool _admin, string memory _gender, uint _accountBalance){
+        firstName = _firstName;
+        lastName = _lastName;
+        account = _account;
+        admin = _admin;
+        gender = _gender;
+        accountBalance = _accountBalance;
+    }
+
+    function setFirstName(string memory _firstName) public{
+        firstName = _firstName;
+    }
+
+    function getFirstName () public view returns(string memory){
+        return firstName;
+    }
+
+    function setLastName(string memory _lastName) public{
+        lastName = _lastName;
+    }
+
+    function getLastName() public view returns(string memory){
+        return lastName;
+    }
+
+    function setAccount(address _account) public{
+        account = _account;
+    } 
+
+    function getAccount() public view returns(address){
+        return account;
+    }
+
+    function isAdmin() public view returns(bool){
+        return admin;
+    }
+
+    function setGneder(string memory _gender) public {
+        gender = _gender;
+    }
+
+    function getGender() public view returns (string memory){
+        return gender;
+    }
+
+    function setAccountBalance(uint _accountBalance) public {
+        accountBalance = _accountBalance;
+    }
+
+    function getAccountBalance() public view returns(uint)  {
+        return accountBalance;
+    }
+
+   
+}
