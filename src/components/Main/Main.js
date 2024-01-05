@@ -42,12 +42,13 @@ const Main = () => {
 
   return (
     <div className="main-container">
-      {!account && (
+      {!account ? (
         <button className="connect-wallet-button" onClick={connectWallet}>
           Connect with metamask
         </button>
+      ) : (
+        <p>Logged as: {account}</p>
       )}
-
       <ClientList
         className="client-list"
         web3={web3}
@@ -69,6 +70,47 @@ const Main = () => {
           clientFactoryAddress={clientFactoryAddress}
         />
       )}
+      <h1>TRANSACTIONS</h1>
+      <div class="form-container">
+        <form class="form-withdraw">
+          <h2>Withdraw money</h2>
+          <input id="address" name="address" value={account} disabled />
+          <input id="amount" name="amount" placeholder="Enter amount" />
+          <button className="withdraw_money" type="submit">
+            Submit
+          </button>
+        </form>
+
+        <form class="form-transfer">
+          <h2>Transfer money</h2>
+          <input
+            type="addressSender"
+            id="addressSender"
+            name="addressSender"
+            value={account}
+            disabled
+          />
+
+          <input
+            id="amountTranfer"
+            name="amountTransfer"
+            placeholder="Enter amount"
+          />
+          <input
+            id="purpuseOfTransfer"
+            name="purpuseOfTransfer"
+            placeholder="Enter transfer purpose"
+          />
+          <input
+            id="recipientAddress"
+            name="recipientAddress"
+            placeholder="Enter address of recipient"
+          />
+          <button className="transfer_money" type="submit">
+            Submit
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

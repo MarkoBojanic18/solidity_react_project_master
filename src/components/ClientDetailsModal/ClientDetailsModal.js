@@ -16,9 +16,9 @@ const ClientDetailsModal = ({ client, onClose, web3, account }) => {
     if (web3 && client) {
       const clientContract = new web3.eth.Contract(ClientABI.abi, client);
 
+      const clientAccount = await clientContract.methods.getAccount().call();
       const firstName = await clientContract.methods.getFirstName().call();
       const lastName = await clientContract.methods.getLastName().call();
-      const clientAccount = await clientContract.methods.getAccount().call();
       const admin = await clientContract.methods.isAdmin().call();
       const gender = await clientContract.methods.getGender().call();
       const accountBalance = await clientContract.methods
