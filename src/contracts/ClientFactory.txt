@@ -39,24 +39,24 @@ contract ClientFactory{
         return false;
     }
 
-    function withdrawMoney() public payable{
+    function withdrawMoney(uint amount) public payable{
         Client sender = findClient(msg.sender);
 
-        require(sender.getAccountBalance() >= msg.value, "There is not enough money on your's account!");
+        require(sender.getAccountBalance() >= amount, "There is not enough money on your's account!");
 
-        sender.setAccountBalance(sender.getAccountBalance()-msg.value);
-        emit moneyIsSuccessfullyWithDrawn(msg.value, msg.sender);
+        sender.setAccountBalance(sender.getAccountBalance()-amount);
+        emit moneyIsSuccessfullyWithDrawn(amount, msg.sender);
     }
 
-    function transferMoney(address payable _accountRecipient) public payable {
+    function transferMoney(uint amount, address payable _accountRecipient) public payable {
         Client sender = findClient(msg.sender);
         Client recipient = findClient(_accountRecipient);
 
-        require(sender.getAccountBalance() >= msg.value, "There is not enough money on your's account in order to complete transaction!");
+        require(sender.getAccountBalance() >= amount, "There is not enough money on your's account in order to complete transaction!");
 
-        sender.setAccountBalance(sender.getAccountBalance()-msg.value);
-        recipient.setAccountBalance(recipient.getAccountBalance()+msg.value);
-        emit moneyIsSuccessfullyTransfered(msg.value, msg.sender, _accountRecipient);
+        sender.setAccountBalance(sender.getAccountBalance()-amount);
+        recipient.setAccountBalance(recipient.getAccountBalance()+amount);
+        emit moneyIsSuccessfullyTransfered(amount, msg.sender, _accountRecipient);
     }
 
     function showClientBalance() public view returns (uint){
@@ -87,18 +87,27 @@ contract ClientFactory{
         return clients;
     }
 
-    function doesClientExistInTheList(string memory _account) public view returns(bool){
+    // function doesClientExistInTheList(string memory _account) public view returns(bool){
+    //     uint arrayLength = clients.length;
+    //     address convertedAddress = stringToAddress(_account);
+
+    //     for(uint i = 0; i < arrayLength; i++){
+    //        if(clients[i].getAccount() == convertedAddress){
+    //         return true;
+    //        }
+    //     }
+     function doesClientExistInTheList() public view returns(bool){
         uint arrayLength = clients.length;
-        address convertedAddress = stringToAddress(_account);
 
         for(uint i = 0; i < arrayLength; i++){
-           if(clients[i].getAccount() == convertedAddress){
+           if(clients[i].getAccount() == msg.sender){
             return true;
            }
         }
 
         return false;
-    }
+     }
+
 
      function stringToAddress(string memory _addressString) public pure returns (address) {
         bytes memory _bytes = bytes(_addressString);

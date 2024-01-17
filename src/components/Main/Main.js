@@ -4,12 +4,13 @@ import NewTransaction from "../Transactions/Transaction.js";
 import CreateNewClientModal from "../CreateNewClientModal/NewClientModal.js";
 import Web3 from "web3";
 import "./Main.css";
-const clientFactoryAddress = "0x6e094f35090f1E459A660999D5a5a1dfFDd0A1fB";
+const clientFactoryAddress = "0x024794804cAE60F10392a18c29f92be7515f7174";
 const sepoliaRPCUrl =
   "https://sepolia.infura.io/v3/67bc1009f5a547cc978659e13579ddf0";
 
 const Main = () => {
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [showTransactions, setShowTransactions] = useState(false);
   const [web3, setWeb3] = useState(null);
   const [account, setAccount] = useState(null);
 
@@ -21,6 +22,8 @@ const Main = () => {
         });
         setAccount(accounts[0]);
         console.log("Connected to Ethereum account: ", accounts[0]);
+        console.log("Account ", account);
+        console.log(typeof accounts[0]);
         window.ethereum.on("accountsChanged", (newAccounts) => {
           setAccount(newAccounts[0]);
           console.log("Switched to account: ", newAccounts[0]);
@@ -72,11 +75,20 @@ const Main = () => {
         />
       )}
 
-      <NewTransaction
-        web3={web3}
-        account={account}
-        clientFactoryAddress={clientFactoryAddress}
-      />
+      <button
+        className="show-transactions-button"
+        onClick={() => setShowTransactions(true)}
+      >
+        {" "}
+        Make Transaction
+      </button>
+      {showTransactions && (
+        <NewTransaction
+          web3={web3}
+          account={account}
+          clientFactoryAddress={clientFactoryAddress}
+        />
+      )}
     </div>
   );
 };

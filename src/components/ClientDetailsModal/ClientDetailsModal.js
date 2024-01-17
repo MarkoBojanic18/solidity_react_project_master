@@ -51,22 +51,24 @@ const ClientDetailsModal = ({ client, onClose, web3, account }) => {
           <img src={gender === "male" ? manPicture : femalePicture} alt="" />
           <p className="client-info">Client address: {clientAccount}</p>
           <table>
-            <tr>
-              <td>Client full name:</td>
-              <td>{firstName + " " + lastName}</td>
-            </tr>
-            <tr>
-              <td>Is admin:</td>
-              <td>{admin}</td>
-            </tr>
-            <tr>
-              <td>Gender:</td>
-              <td>{gender}</td>
-            </tr>
-            <tr>
-              <td>Account balance:</td>
-              <td>{accountBalance}</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td>Client full name:</td>
+                <td>{firstName + " " + lastName}</td>
+              </tr>
+              <tr>
+                <td>Is admin:</td>
+                <td>{admin}</td>
+              </tr>
+              <tr>
+                <td>Gender:</td>
+                <td>{gender}</td>
+              </tr>
+              <tr>
+                <td>Account balance:</td>
+                <td>{accountBalance}</td>
+              </tr>
+            </tbody>
           </table>
           <button className="close-button" onClick={onClose}>
             Close
